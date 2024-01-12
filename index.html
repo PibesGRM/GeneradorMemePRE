@@ -8,6 +8,12 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
         }
 
         #meme-container {
@@ -38,31 +44,34 @@
             margin-top: 20px;
             padding: 10px;
         }
+
+        #meme-image {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
-    <!-- Resto del código HTML -->
-
     <div id="meme-container">
-        <img id="meme-image" src="https://a.pinatafarm.com/590x443/9e595b81c3/galaxy-brain-a66e42b82ef6d947a10f240ef578ea73-meme.jpeg" alt="Meme">
+        <img id="meme-image" src="galaxy-brain-meme.jpeg" alt="Meme">
         <div id="text-top" contenteditable="true" class="meme-text">Texto superior</div>
         <div id="text-bottom" contenteditable="true" class="meme-text">Texto inferior</div>
     </div>
     <button onclick="generateMeme()">Generar Meme</button>
 
     <script>
-        function generateMeme() {
+        async function generateMeme() {
             const memeContainer = document.getElementById('meme-container');
 
             // Utilizar html2canvas para convertir el contenido del contenedor en una imagen
-            html2canvas(memeContainer).then(canvas => {
-                // Crear un enlace para descargar la imagen
-                const link = document.createElement('a');
-                link.href = canvas.toDataURL();
-                link.download = 'meme.png';
-                link.click();
-            });
+            const canvas = await html2canvas(memeContainer);
+
+            // Crear un enlace para descargar la imagen
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL();
+            link.download = 'meme.png';
+            link.click();
         }
     </script>
 </body>
