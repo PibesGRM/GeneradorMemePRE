@@ -54,18 +54,32 @@
 </head>
 <body>
     <div id="meme-container">
-        <img id="meme-image" src="galaxy-brain-meme.jpeg" alt="Meme">
-        <div id="text-top" contenteditable="true" class="meme-text">Texto superior</div>
-        <div id="text-bottom" contenteditable="true" class="meme-text">Texto inferior</div>
+        <img id="meme-image" src="https://a.pinatafarm.com/590x443/9e595b81c3/galaxy-brain-a66e42b82ef6d947a10f240ef578ea73-meme.jpeg" alt="Meme">
+        <div id="text-top" class="meme-text" contenteditable="true">Texto superior</div>
+        <div id="text-bottom" class="meme-text" contenteditable="true">Texto inferior</div>
     </div>
     <button onclick="generateMeme()">Generar Meme</button>
 
     <script>
         async function generateMeme() {
             const memeContainer = document.getElementById('meme-container');
+            const textTop = document.getElementById('text-top').innerText;
+            const textBottom = document.getElementById('text-bottom').innerText;
 
             // Utilizar html2canvas para convertir el contenido del contenedor en una imagen
             const canvas = await html2canvas(memeContainer);
+
+            // Obtener el contexto del lienzo
+            const context = canvas.getContext('2d');
+
+            // Aplicar texto superior
+            context.font = '20px Arial';
+            context.fillStyle = 'white';
+            context.textAlign = 'center';
+            context.fillText(textTop, canvas.width / 2, 30);
+
+            // Aplicar texto inferior
+            context.fillText(textBottom, canvas.width / 2, canvas.height - 10);
 
             // Crear un enlace para descargar la imagen
             const link = document.createElement('a');
