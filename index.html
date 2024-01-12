@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Memes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        #meme-container {
+            position: relative;
+            margin: 20px;
+        }
+
+        .meme-text {
+            position: absolute;
+            font-size: 20px;
+            color: white;
+            text-shadow: 2px 2px 2px black;
+        }
+
+        #text-top {
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #text-bottom {
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px;
+        }
+    </style>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- Resto del código HTML -->
+
+    <div id="meme-container">
+        <img id="meme-image" src="https://a.pinatafarm.com/590x443/9e595b81c3/galaxy-brain-a66e42b82ef6d947a10f240ef578ea73-meme.jpeg" alt="Meme">
+        <div id="text-top" contenteditable="true" class="meme-text">Texto superior</div>
+        <div id="text-bottom" contenteditable="true" class="meme-text">Texto inferior</div>
+    </div>
+    <button onclick="generateMeme()">Generar Meme</button>
+
+    <script>
+        function generateMeme() {
+            const memeContainer = document.getElementById('meme-container');
+
+            // Utilizar html2canvas para convertir el contenido del contenedor en una imagen
+            html2canvas(memeContainer).then(canvas => {
+                // Crear un enlace para descargar la imagen
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL();
+                link.download = 'meme.png';
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
